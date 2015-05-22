@@ -60,8 +60,20 @@ describe('OCSP Server', function() {
           throw err;
 
         assert.equal(res.type, 'good');
-        cb();
+
+        next();
       });
     });
+
+    function next() {
+      ocsp.check({
+        cert: revoked.cert,
+        issuer: issuer.cert
+      }, function(err, res) {
+        assert(err);
+        assert.equal(res.type, 'revoked');
+        cb();
+      });
+    }
   });
 });
