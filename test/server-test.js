@@ -2,7 +2,6 @@ var ocsp = require('../');
 var fixtures = require('./fixtures');
 
 var assert = require('assert');
-var https = require('https');
 
 describe('OCSP Server', function() {
   var issuer = fixtures.certs.issuer;
