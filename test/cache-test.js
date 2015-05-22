@@ -65,6 +65,7 @@ describe('OCSP Cache', function() {
       https.get({
         agent: agent,
         ca: issuer.cert,
+        rejectUnauthorized: !/^v0.12/.test(process.version),
         servername: 'local.host',
         port: 8001
       }, function(res) {
