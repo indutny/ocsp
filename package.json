@@ -20,6 +20,7 @@
   "dependencies": {
     "asn1.js": "^2.0.3",
     "asn1.js-rfc2560": "^2.1.0",
-    "asn1.js-rfc3280": "^2.1.0"
+    "asn1.js-rfc3280": "^2.1.0",
+    "simple-lru-cache": "0.0.2"
   }
 }

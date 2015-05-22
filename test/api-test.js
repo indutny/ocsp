@@ -15,11 +15,6 @@ describe('OCSP Stapling Provider', function() {
     });
   });
 
-  var o;
-  beforeEach(function() {
-    o = new ocsp.Cache();
-  });
-
   describe('.check()', function() {
     it('should validate google.com', function(cb) {
       ocsp.check({
@@ -47,23 +42,26 @@ describe('OCSP Stapling Provider', function() {
       });
 
       req.on('socket', function(socket) {
-        socket.on('OCSPResponse', function(stapling) {
-          var cert = socket.getPeerCertificate(true);
-
-          var req = ocsp.request.generate(cert.raw, cert.issuerCertificate.raw);
-          assert.doesNotThrow(function() {
-
-            var res = ocsp.verify({
-              request: req,
-              response: stapling
-            });
-
-            assert.equal(res.type, 'good');
-            socket.destroy();
-            cb();
-          });
+        socket.on('OCSPResponse', function() {
+          onOCSPResponse(socket, stapling);
         });
       });
+
+      function onOCSPResponse(socket, stapling) {
+        var cert = socket.getPeerCertificate(true);
+
+        var req = ocsp.request.generate(cert.raw, cert.issuerCertificate.raw);
+        assert.doesNotThrow(function() {
+          var res = ocsp.verify({
+            request: req,
+            response: stapling
+          });
+
+          assert.equal(res.type, 'good');
+          socket.destroy();
+          cb();
+        });
+      }
     });
   });
 });
