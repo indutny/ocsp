@@ -1,4 +1,4 @@
-# OCSP
+# OCSP APIs for node.js [![Build Status](https://secure.travis-ci.org/indutny/ocsp.png)](http://travis-ci.org/indutny/node-ocsp)
 
 #### LICENSE
 
