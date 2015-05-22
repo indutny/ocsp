@@ -4,7 +4,7 @@
   "description": "OCSP Stapling implementation",
   "main": "lib/ocsp.js",
   "scripts": {
-    "test": "mocha test/*-test.js"
+    "test": "mocha test/*-test.js --timeout=5000"
   },
   "keywords": [
     "OCSP",
@@ -15,12 +15,13 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.2.5",
-    "selfsigned.js": "^1.1.0"
+    "selfsigned.js": "^1.2.0"
   },
   "dependencies": {
     "asn1.js": "^2.0.3",
     "asn1.js-rfc2560": "^2.1.0",
     "asn1.js-rfc3280": "^2.1.0",
+    "async": "^1.0.0",
     "simple-lru-cache": "0.0.2"
   }
 }

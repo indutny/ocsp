@@ -25,6 +25,22 @@ exports.getOCSPCert = function getOCSPCert(options, cb) {
   var commonName = options.commonName || 'local.host';
   var OCSPEndPoint = options.OCSPEndPoint || 'http://127.0.0.1:8000/ocsp';
 
+  var issuer = options.issuer;
+  if (issuer)
+    issuer = ocsp.utils.toDER(issuer, 'CERTIFICATE');
+  if (issuer)
+    issuer = rfc3280.Certificate.decode(issuer, 'der');
+
+  var issuerKeyData = options.issuerKey;
+
+  if (issuerKeyData)
+    issuerKeyData = ocsp.utils.toDER(options.issuerKey, 'RSA PRIVATE KEY');
+
+  if (issuerKeyData)
+    issuerKeyData = ocsp.utils.RSAPrivateKey.decode(issuerKeyData, 'der');
+  else
+    issuerKeyData = options.issuerKeyData;
+
   function getPrime(cb) {
     keyGen.getPrime(size >> 1, function(err, prime) {
       if (err)
@@ -66,8 +82,11 @@ exports.getOCSPCert = function getOCSPCert(options, cb) {
 
   getKeyData(function(keyData) {
     var certData = keyGen.getCertData({
+      serial: options.serial,
       keyData: keyData,
       commonName: commonName,
+      issuer: issuer,
+      issuerKeyData: issuerKeyData,
       extensions: [ {
         extnID: rfc3280['id-pe-authorityInfoAccess'],
         critical: false,
@@ -76,6 +95,6 @@ exports.getOCSPCert = function getOCSPCert(options, cb) {
     });
 
     var pem = keyGen.getCert(certData, 'pem');
-    return cb(pem);
+    return cb(pem, keyGen.getPrivate(keyData, 'pem'));
   });
 };

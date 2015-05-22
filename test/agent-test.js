@@ -5,16 +5,6 @@ var assert = require('assert');
 var https = require('https');
 
 describe('OCSP Agent', function() {
-  var cert = null;
-  before(function(cb) {
-    var options = {
-    };
-    fixtures.getOCSPCert(options, function(res) {
-      cert = res;
-      cb();
-    });
-  });
-
   var a;
   beforeEach(function() {
     a = new ocsp.Agent();

@@ -5,16 +5,6 @@ var assert = require('assert');
 var https = require('https');
 
 describe('OCSP Stapling Provider', function() {
-  var cert = null;
-  before(function(cb) {
-    var options = {
-    };
-    fixtures.getOCSPCert(options, function(res) {
-      cert = res;
-      cb();
-    });
-  });
-
   describe('.check()', function() {
     it('should validate google.com', function(cb) {
       ocsp.check({
