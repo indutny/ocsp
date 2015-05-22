@@ -5,39 +5,9 @@ var assert = require('assert');
 var https = require('https');
 
 describe('OCSP Server', function() {
-  var issuer = { cert: null, key: null };
-  var good = { cert: null, key: null };
-  var revoked = { cert: null, key: null };
-
-  before(function(cb) {
-    var options = {
-      serial: 42,
-      commonName: 'mega.ca',
-      size: 1024
-    };
-    fixtures.getOCSPCert(options, function(cert, key) {
-      issuer.cert = cert;
-      issuer.key = key;
-
-      var options = {
-        issuer: cert,
-        issuerKey: key,
-        serial: 43
-      };
-
-      fixtures.getOCSPCert(options, function(cert, key) {
-        good.cert = cert;
-        good.key = key;
-
-        options.serial++;
-        fixtures.getOCSPCert(options, function(cert, key) {
-          revoked.cert = cert;
-          revoked.key = key;
-          cb();
-        });
-      });
-    });
-  });
+  var issuer = fixtures.certs.issuer;
+  var good = fixtures.certs.good;
+  var revoked = fixtures.certs.revoked;
 
   it('should provide ocsp response to the client', function(cb) {
     var server = ocsp.Server.create({

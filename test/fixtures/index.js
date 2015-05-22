@@ -17,6 +17,15 @@ var keyGen = require('selfsigned.js').create();
 exports.google = fs.readFileSync(__dirname + '/google-cert.pem');
 exports.googleIssuer = fs.readFileSync(__dirname + '/google-issuer.pem');
 
+exports.certs = {};
+
+[ 'issuer', 'good', 'revoked' ].forEach(function(name) {
+  exports.certs[name] = {
+    cert: fs.readFileSync(__dirname + '/' + name + '-cert.pem'),
+    key: fs.readFileSync(__dirname + '/' + name + '-key.pem')
+  };
+});
+
 exports.getOCSPCert = function getOCSPCert(options, cb) {
   if (!options)
     options = {};
