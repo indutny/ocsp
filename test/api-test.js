@@ -42,7 +42,7 @@ describe('OCSP Stapling Provider', function() {
       });
 
       req.on('socket', function(socket) {
-        socket.on('OCSPResponse', function() {
+        socket.on('OCSPResponse', function(stapling) {
           onOCSPResponse(socket, stapling);
         });
       });
@@ -51,11 +51,11 @@ describe('OCSP Stapling Provider', function() {
         var cert = socket.getPeerCertificate(true);
 
         var req = ocsp.request.generate(cert.raw, cert.issuerCertificate.raw);
-        assert.doesNotThrow(function() {
-          var res = ocsp.verify({
-            request: req,
-            response: stapling
-          });
+        ocsp.verify({
+          request: req,
+          response: stapling
+        }, function(err, res) {
+          assert(!err);
 
           assert.equal(res.type, 'good');
           socket.destroy();
