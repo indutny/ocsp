@@ -16,6 +16,7 @@ var keyGen = require('selfsigned.js').create();
 
 exports.google = fs.readFileSync(__dirname + '/google-cert.pem');
 exports.googleIssuer = fs.readFileSync(__dirname + '/google-issuer.pem');
+exports.noExts = fs.readFileSync(__dirname + '/no-exts-cert.pem');
 
 exports.certs = {};
 

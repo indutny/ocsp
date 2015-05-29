@@ -54,4 +54,13 @@ describe('OCSP Stapling Provider', function() {
       }
     });
   });
+
+  describe('.getOCSPURI()', function() {
+    it('should work on cert without extensions', function(cb) {
+      ocsp.getOCSPURI(fixtures.noExts, function(err) {
+        assert(err);
+        cb();
+      });
+    });
+  });
 });
