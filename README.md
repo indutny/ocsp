@@ -1,4 +1,4 @@
-# OCSP APIs for node.js [![Build Status](https://secure.travis-ci.org/indutny/ocsp.png)](http://travis-ci.org/indutny/node-ocsp)
+# OCSP APIs for node.js [![Build Status](https://secure.travis-ci.org/indutny/ocsp.svg)](http://travis-ci.org/indutny/ocsp)
 
 Various [OCSP][0]-related APIs to be used with node.js/io.js.
 
