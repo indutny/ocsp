@@ -4,7 +4,7 @@
   "description": "OCSP Stapling implementation",
   "main": "lib/ocsp.js",
   "scripts": {
-    "test": "mocha test/*-test.js"
+    "test": "mocha test/*-test.js && jshint lib/*.js lib/**/*.js && jscs lib/*.js lib/**/*.js test/*.js test/**/*.js"
   },
   "keywords": [
     "OCSP",
@@ -14,6 +14,8 @@
   "author": "Fedor Indutny <fedor@indutny.com>",
   "license": "MIT",
   "devDependencies": {
+    "jscs": "^2.4.0",
+    "jshint": "^2.8.0",
     "mocha": "^2.2.5",
     "selfsigned.js": "^1.2.0"
   },
