@@ -20,4 +20,15 @@ describe('OCSP Agent', function() {
       cb();
     });
   });
+
+  it('should connect and validate letsencrypt.org', function(cb) {
+    var req = https.get({
+      host: 'helloworld.letsencrypt.org',
+      port: 443,
+      agent: a
+    }, function(res) {
+      res.resume();
+      cb();
+    });
+  });
 });
