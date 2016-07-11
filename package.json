@@ -20,9 +20,9 @@
     "selfsigned.js": "^3.0.1"
   },
   "dependencies": {
-    "asn1.js": "^4.5.2",
+    "asn1.js": "^4.8.0",
     "asn1.js-rfc2560": "^4.0.0",
-    "asn1.js-rfc3280": "^4.0.0",
+    "asn1.js-rfc5280": "^1.0.0",
     "async": "^1.5.2",
     "simple-lru-cache": "0.0.2"
   }

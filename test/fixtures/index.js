@@ -2,7 +2,7 @@ var ocsp = require('../../');
 
 var fs = require('fs');
 var rfc2560 = require('asn1.js-rfc2560');
-var rfc3280 = require('asn1.js-rfc3280');
+var rfc5280 = require('asn1.js-rfc5280');
 var keyGen = require('selfsigned.js').create();
 
 /*
@@ -39,7 +39,7 @@ exports.getOCSPCert = function getOCSPCert(options, cb) {
   if (issuer)
     issuer = ocsp.utils.toDER(issuer, 'CERTIFICATE');
   if (issuer)
-    issuer = rfc3280.Certificate.decode(issuer, 'der');
+    issuer = rfc5280.Certificate.decode(issuer, 'der');
 
   var issuerKeyData = options.issuerKey;
 
@@ -82,7 +82,7 @@ exports.getOCSPCert = function getOCSPCert(options, cb) {
     });
   }
 
-  var ext = rfc3280.AuthorityInfoAccessSyntax.encode([ {
+  var ext = rfc5280.AuthorityInfoAccessSyntax.encode([ {
     accessMethod: rfc2560['id-pkix-ocsp'],
     accessLocation: {
       type: 'uniformResourceIdentifier',
@@ -98,7 +98,7 @@ exports.getOCSPCert = function getOCSPCert(options, cb) {
       issuer: issuer,
       issuerKeyData: issuerKeyData,
       extensions: [ {
-        extnID: rfc3280['id-pe-authorityInfoAccess'],
+        extnID: rfc5280['id-pe-authorityInfoAccess'],
         critical: false,
         extnValue: ext
       } ]
