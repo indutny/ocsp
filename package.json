@@ -4,7 +4,8 @@
   "description": "OCSP Stapling implementation",
   "main": "lib/ocsp.js",
   "scripts": {
-    "test": "mocha test/*-test.js && jshint lib/*.js lib/**/*.js && jscs lib/*.js lib/**/*.js test/*.js test/**/*.js"
+    "lint": "jshint lib/*.js lib/**/*.js && jscs lib/*.js lib/**/*.js test/*.js test/**/*.js",
+    "test": "mocha test/*-test.js"
   },
   "keywords": [
     "OCSP",
