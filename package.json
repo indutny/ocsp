@@ -12,6 +12,10 @@
     "Stapling"
   ],
   "author": "Fedor Indutny <fedor@indutny.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/indutny/ocsp.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "jscs": "^2.4.0",
