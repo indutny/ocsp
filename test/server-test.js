@@ -17,7 +17,7 @@ describe('OCSP Server', function() {
     server.addCert(43, 'good');
     server.addCert(44, 'revoked', {
       revocationTime: new Date(),
-      revocationReason: 'CACompromise'
+      revocationReason: 'cACompromise'
     });
 
     server.listen(8000, function() {
