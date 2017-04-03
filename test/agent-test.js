@@ -10,25 +10,25 @@ describe('OCSP Agent', function() {
     a = new ocsp.Agent();
   });
 
-  it('should connect and validate google.com', function(cb) {
-    var req = https.get({
-      host: 'www.google.com',
-      port: 443,
-      agent: a
-    }, function(res) {
-      res.resume();
-      cb();
-    });
-  });
+  var websites = [
+    'www.google.com',
+    'google.com',
+    'helloworld.letsencrypt.org',
+    'yahoo.com',
+    'nytimes.com',
+    'microsoft.com'
+  ];
 
-  it('should connect and validate letsencrypt.org', function(cb) {
-    var req = https.get({
-      host: 'helloworld.letsencrypt.org',
-      port: 443,
-      agent: a
-    }, function(res) {
-      res.resume();
-      cb();
+  websites.forEach(function(host) {
+    it('should connect and validate ' + host, function(cb) {
+      var req = https.get({
+        host: host,
+        port: 443,
+        agent: a
+      }, function(res) {
+        res.resume();
+        cb();
+      });
     });
   });
 });
