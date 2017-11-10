@@ -62,16 +62,21 @@ var server = https.createServer({
 
 server.on('OCSPRequest', function(cert, issuer, cb) {
   ocsp.getOCSPURI(cert, function(err, uri) {
-    if (err)
-      return cb(err);
+    if (err) return cb(err);
+    if (uri === null) return cb();
 
     var req = ocsp.request.generate(cert, issuer);
-    var options = {
-      url: uri,
-      ocsp: req.data
-    };
+    cache.probe(req.id, function(err, cached) {
+      if (err) return cb(err);
+      if (cached !== false) return cb(null, cached.response);
 
-    cache.request(req.id, options, cb);
+      var options = {
+        url: uri,
+        ocsp: req.data
+      };
+
+      cache.request(req.id, options, cb);
+    });
   });
 });
 ```
