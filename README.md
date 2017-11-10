@@ -64,6 +64,8 @@ server.on('OCSPRequest', function(cert, issuer, cb) {
   ocsp.getOCSPURI(cert, function(err, uri) {
     if (err)
       return cb(err);
+    if (uri === null)
+      return cb();
 
     var req = ocsp.request.generate(cert, issuer);
     var options = {
