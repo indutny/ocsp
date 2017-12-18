@@ -32,3 +32,27 @@ describe('OCSP Agent', function() {
     });
   });
 });
+
+describe('OCSP Agent failed', function() {
+  var a;
+  beforeEach(function() {
+    a = new ocsp.Agent();
+  });
+
+  var websites = [
+    "p.vj-vid.com",
+    "vast.bp3861034.btrll.com"
+  ];
+
+  websites.forEach(function(host) {
+    it('should connect and emit error ' + host, function(cb) {
+      var req = https.get({
+        host: host,
+        port: 443,
+        agent: a
+      }).on('error', (e) => {
+        cb();
+      });
+    })
+  });
+})
